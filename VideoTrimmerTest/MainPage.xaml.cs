@@ -62,10 +62,6 @@ namespace VideoTrimmerTest
             }
         }
 
-        void TakeVideo_Clicked(System.Object sender, System.EventArgs e)
-        {
-        }
-
         async void TrimVideo_Clicked(System.Object sender, System.EventArgs e)
         {
             int startTime, endTime;
@@ -93,7 +89,7 @@ namespace VideoTrimmerTest
 
             try
             {
-                if (await VideoTrimmerService.Instance.Trim(startTime * 1000, endTime * 1000, inputFilePath, outputPath))
+                if (await VideoTrimmerService.Instance.TrimAsync(startTime * 1000, endTime * 1000, inputFilePath, outputPath))
                 {
                     await DisplayAlert("", "Video Trimmed Successfully", "OK");
                     await Share.RequestAsync(new ShareFileRequest

@@ -29,10 +29,10 @@ namespace VideoTrimmer.Services
             videoTrimmingService = DependencyService.Get<IVideoTrimmingService>();
         }
 
-        public async Task<bool> Trim(int startMS, int lengthMS, string inputPath, string outputPath)
+        public async Task<bool> TrimAsync(int startMS, int lengthMS, string inputPath, string outputPath)
         {
             //Todo: All validations should be done and proper exceptions should be raised here.
-            return await videoTrimmingService.Trim(startMS, lengthMS, inputPath, outputPath);
+            return await videoTrimmingService.TrimAsync(startMS, lengthMS, inputPath, outputPath);
         }
     }
 }

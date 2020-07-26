@@ -13,7 +13,7 @@ namespace VideoTrimmer.PlatformImplementations.iOS
 {
     internal class VideoTrimmingService : IVideoTrimmingService
     {
-        public async Task<bool> Trim(int startMS, int lengthMS, string inputPath, string outputPath)
+        public async Task<bool> TrimAsync(int startMS, int lengthMS, string inputPath, string outputPath)
         {
             bool didOperationSucceed = false;
             try

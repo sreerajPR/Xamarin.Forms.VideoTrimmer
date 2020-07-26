@@ -13,7 +13,7 @@ namespace VideoTrimmer.PlatformImplementations.Android
 {
     internal class VideoTrimmingService: IVideoTrimmingService
     {
-        public Task<bool> Trim(int startMS, int lengthMS, string inputPath, string outputPath)
+        public Task<bool> TrimAsync(int startMS, int lengthMS, string inputPath, string outputPath)
         {
             return Task.Run<bool>(() =>
             {

@@ -8,10 +8,12 @@
     <Description>Xamarin.Forms Library that targets Android and iOS, to trim videos</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageVersion>1.0.1</PackageVersion>
+    <PackageVersion>1.0.3</PackageVersion>
     <Owners>Sreeraj P R</Owners>
     <Summary>Xamarin.Forms Video Trimmer Library</Summary>
     <Title>Xamarin.Forms Video Trimmer Library</Title>
+    <PackageProjectUrl>https://github.com/sreerajPR/Xamarin.Forms.VideoTrimmer</PackageProjectUrl>
+    <PackageTags>xamarin.forms;video;trim;cut;Android;iOS;xamarin;c#</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

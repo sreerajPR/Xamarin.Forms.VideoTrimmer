@@ -1,0 +1,43 @@
+<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;Xamarin.iOS10;MonoAndroid90</TargetFrameworks>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageId>Xamarin.Forms.VideoTrimmer</PackageId>
+    <Authors>Sreeraj</Authors>
+    <Description>Xamarin.Forms Library that targets Android and iOS, to trim videos</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageVersion>1.0.1</PackageVersion>
+    <Owners>Sreeraj P R</Owners>
+    <Summary>Xamarin.Forms Video Trimmer Library</Summary>
+    <Title>Xamarin.Forms Video Trimmer Library</Title>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="PlatformImplementations\" />
+    <Folder Include="PlatformImplementations\Android\" />
+    <Folder Include="PlatformImplementations\iOS\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="PlatformImplementations\**\*.cs" />
+    <None Remove="PlatformImplementations\**\*.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
+    <Compile Include="PlatformImplementations\iOS\**\*.cs" />
+  </ItemGroup>
+ 
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
+    <Compile Include="PlatformImplementations\Android\**\*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Services\VideoTrimmer.cs">
+      <SubType></SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="4.3.0.908675" />
+  </ItemGroup>
+</Project>

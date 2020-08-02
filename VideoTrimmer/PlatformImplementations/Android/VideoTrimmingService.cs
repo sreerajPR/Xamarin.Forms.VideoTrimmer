@@ -97,7 +97,7 @@ namespace VideoTrimmer.PlatformImplementations.Android
                             else
                             {
                                 bufferInfo.PresentationTimeUs = extractor.SampleTime;
-                                if (lengthMS > 0 && bufferInfo.PresentationTimeUs > (lengthMS * 1000))
+                                if (lengthMS > 0 && bufferInfo.PresentationTimeUs > ((startMS+lengthMS-1) * 1000))
                                 {
                                     Console.WriteLine("The current sample is over the trim end time.");
                                     break;
@@ -128,7 +128,7 @@ namespace VideoTrimmer.PlatformImplementations.Android
                     }
                     return didOperationSucceed;
                 }
-                catch
+                catch(System.Exception xx)
                 {
                     return false;
                 }

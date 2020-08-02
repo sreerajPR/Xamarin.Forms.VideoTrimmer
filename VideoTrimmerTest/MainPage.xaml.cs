@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using VideoTrimmer.Services;
 using Xamarin.Essentials;
+using System.IO;
 
 namespace VideoTrimmerTest
 {
@@ -31,7 +32,9 @@ namespace VideoTrimmerTest
         {
             await CrossMedia.Current.Initialize();
 
-            if (await CheckAndRequestPermissionAsync<Permissions.StorageRead>("Storage") && await CheckAndRequestPermissionAsync<Permissions.Photos>("Photos"))
+            if (await CheckAndRequestPermissionAsync<Permissions.StorageRead>("Read Storage")
+                && await CheckAndRequestPermissionAsync<Permissions.StorageWrite>("Write Storage")
+                && await CheckAndRequestPermissionAsync<Permissions.Photos>("Photos"))
             {
                 if (!CrossMedia.Current.IsPickVideoSupported)
                 {
@@ -63,7 +66,7 @@ namespace VideoTrimmerTest
         {
             int startTime, endTime;
 
-            if(!int.TryParse(StartTime.Text,out startTime))
+            if (!int.TryParse(StartTime.Text, out startTime))
             {
                 await DisplayAlert("", "Start Time is not in proper format", "OK");
                 return;
@@ -74,13 +77,14 @@ namespace VideoTrimmerTest
                 return;
             }
 
-            if(string.IsNullOrWhiteSpace(inputFilePath))
+            if (string.IsNullOrWhiteSpace(inputFilePath))
             {
                 await DisplayAlert("", "Video for trimming is not selected", "OK");
                 return;
             }
 
-            string outputPath = DependencyService.Get<ITrimmedFilePathProvider>().GetOutputPath();
+            string fileName = DateTime.Now.ToString("yyyyMMddhhmmss") + (Device.RuntimePlatform == Device.iOS ? ".mov" : ".mp4");
+            string outputPath = Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, fileName);
 
             TrimmingIndicatorView.IsVisible = true;
 
@@ -104,7 +108,7 @@ namespace VideoTrimmerTest
             {
                 TrimmingIndicatorView.IsVisible = false;
             }
-            
+
         }
 
         private async Task<bool> CheckAndRequestPermissionAsync<TPermission>(string permissionName) where TPermission : Permissions.BasePermission, new()
@@ -115,12 +119,11 @@ namespace VideoTrimmerTest
                 if (status != PermissionStatus.Granted)
                 {
                     status = await Permissions.RequestAsync<TPermission>();
-                    //Best practice to always check that the key exists
                     if (status != PermissionStatus.Granted)
                     {
                         if (status == PermissionStatus.Denied)
                         {
-                            await DisplayAlert("Permission Required", "Please enable "+ permissionName + " permission to carry on with this operation.", "OK");
+                            await DisplayAlert("Permission Required", "Please enable " + permissionName + " permission to carry on with this operation.", "OK");
                         }
                     }
                 }

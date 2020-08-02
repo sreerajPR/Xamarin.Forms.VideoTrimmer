@@ -4,7 +4,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" x:Class="VideoTrimmerTest.MainPage">
-    <Grid Padding="20" ColumnSpacing="20" RowSpacing="20" VerticalOptions="Center">
+    <Grid Padding="20"
+        ColumnSpacing="20"
+        RowSpacing="20"
+        VerticalOptions="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
@@ -15,14 +18,40 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Text="Pick Video" Clicked="PickVideo_Clicked" Grid.ColumnSpan="2" BackgroundColor="DeepSkyBlue" TextColor="White"/>
-        <Label x:Name="Status" HorizontalTextAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" Text="Pick a Video First" />
-        <Entry x:Name="StartTime" Placeholder="Starting Time in Seconds" Grid.Row="2"/>
-        <Entry x:Name="Length" Placeholder="Length in Seconds" Grid.Row="2" Grid.Column="1"/>
-        <Button Text="Trim and Share Video" Clicked="TrimVideo_Clicked" Grid.Row="3" Grid.ColumnSpan="2" BackgroundColor="DeepSkyBlue" TextColor="White"/>
-        <StackLayout x:Name="TrimmingIndicatorView" BackgroundColor="LightGray" Grid.RowSpan="4" Grid.ColumnSpan="2" IsVisible="False">
-            <ActivityIndicator HorizontalOptions="Center" IsRunning="True" VerticalOptions="EndAndExpand"/>
-            <Label Text="Trimming Video" HorizontalOptions="Center" VerticalOptions="StartAndExpand"/>
+        <Button Text="Pick Video"
+            Clicked="PickVideo_Clicked"
+            Grid.ColumnSpan="2"
+            BackgroundColor="DeepSkyBlue"
+            TextColor="White"/>
+        <Label x:Name="Status"
+            HorizontalTextAlignment="Center"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Text="Pick a Video First" />
+        <Entry x:Name="StartTime"
+            Placeholder="Starting Time in Seconds"
+            Grid.Row="2"/>
+        <Entry x:Name="Length"
+            Placeholder="Length in Seconds"
+            Grid.Row="2"
+            Grid.Column="1"/>
+        <Button Text="Trim and Share Video"
+            Clicked="TrimVideo_Clicked"
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            BackgroundColor="DeepSkyBlue"
+            TextColor="White"/>
+        <StackLayout x:Name="TrimmingIndicatorView"
+                    BackgroundColor="LightGray"
+                    Grid.RowSpan="4"
+                    Grid.ColumnSpan="2"
+                    IsVisible="False">
+            <ActivityIndicator HorizontalOptions="Center"
+                            IsRunning="True"
+                            VerticalOptions="EndAndExpand"/>
+            <Label Text="Trimming Video"
+                HorizontalOptions="Center"
+                VerticalOptions="StartAndExpand"/>
         </StackLayout>
     </Grid>
 </ContentPage>

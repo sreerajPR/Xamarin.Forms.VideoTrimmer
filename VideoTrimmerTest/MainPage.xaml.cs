@@ -5,13 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Plugin.Media;
-using Plugin.Permissions;
-using Plugin.Permissions.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using VideoTrimmer.Services;
 using Xamarin.Essentials;
-using PermissionStatus = Plugin.Permissions.Abstractions.PermissionStatus;
 
 namespace VideoTrimmerTest
 {
@@ -34,7 +31,7 @@ namespace VideoTrimmerTest
         {
             await CrossMedia.Current.Initialize();
 
-            if (await RequestPermission(Permission.Storage) && await RequestPermission(Permission.Photos))
+            if (await CheckAndRequestPermissionAsync<Permissions.StorageRead>("Storage") && await CheckAndRequestPermissionAsync<Permissions.Photos>("Photos"))
             {
                 if (!CrossMedia.Current.IsPickVideoSupported)
                 {
@@ -110,21 +107,20 @@ namespace VideoTrimmerTest
             
         }
 
-        private async Task<bool> RequestPermission(Permission permission)
+        private async Task<bool> CheckAndRequestPermissionAsync<TPermission>(string permissionName) where TPermission : Permissions.BasePermission, new()
         {
             try
             {
-                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(permission);
+                var status = await Permissions.CheckStatusAsync<TPermission>();
                 if (status != PermissionStatus.Granted)
                 {
-                    var results = await CrossPermissions.Current.RequestPermissionsAsync(permission);
+                    status = await Permissions.RequestAsync<TPermission>();
                     //Best practice to always check that the key exists
-                    if (results.ContainsKey(permission))
+                    if (status != PermissionStatus.Granted)
                     {
-                        status = results[permission];
                         if (status == PermissionStatus.Denied)
                         {
-                            await DisplayAlert("Permission Required", "Please enable " + permission.ToString() + " permission to carry on with this operation.", "OK");
+                            await DisplayAlert("Permission Required", "Please enable "+ permissionName + " permission to carry on with this operation.", "OK");
                         }
                     }
                 }

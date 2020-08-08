@@ -27,3 +27,5 @@ else
 }
 
 ```
+# Demo Post
+[Plugin Demonstration Post](https://sreerajpr.com/blogs/xamarin-forms-video-trimmer/)
